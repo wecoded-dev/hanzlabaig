@@ -706,6 +706,338 @@
     
     <!-- Creative Divider -->
     <div class="creative-divider"></div>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Book Card</title>
+    <style>
+        /* Self-contained styles */
+        #classic-book-card {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            max-width: 320px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        #classic-book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Book Cover */
+        .book-cover-container {
+            height: 220px;
+            overflow: hidden;
+            background: #f5f5f5;
+            position: relative;
+        }
+        
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        #classic-book-card:hover .book-cover {
+            transform: scale(1.05);
+        }
+        
+        /* Classic ribbon */
+        .classic-ribbon {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #111;
+            color: white;
+            padding: 8px 40px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Content */
+        .book-content {
+            padding: 25px;
+        }
+        
+        .book-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .book-author {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: #777;
+        }
+        
+        .book-pages {
+            background: #f0f0f0;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+        
+        .book-year {
+            color: #555;
+        }
+        
+        .book-description {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 3px solid #ddd;
+        }
+        
+        /* Rating */
+        .book-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rating-stars {
+            display: flex;
+            margin-right: 10px;
+        }
+        
+        .rating-stars i {
+            color: #ddd;
+            margin-right: 2px;
+            font-size: 14px;
+        }
+        
+        .rating-stars i.filled {
+            color: #222;
+        }
+        
+        .rating-value {
+            font-weight: 600;
+            color: #222;
+            font-size: 0.9rem;
+        }
+        
+        /* Formats */
+        .book-formats {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .format-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            color: #555;
+            border: 1px solid #e0e0e0;
+        }
+        
+        /* Classic Download Button */
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #111;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: 1px solid #111;
+            font-family: 'Georgia', serif;
+            font-size: 0.95rem;
+        }
+        
+        .download-btn:hover {
+            background: white;
+            color: #111;
+        }
+        
+        .download-btn i {
+            margin-right: 8px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            #classic-book-card {
+                max-width: 300px;
+            }
+            
+            .book-cover-container {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            #classic-book-card {
+                max-width: 100%;
+                margin: 15px;
+            }
+        }
+    </style>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Simple Classic Book Card -->
+    <div id="classic-book-card">
+        <div class="book-cover-container">
+            <div class="classic-ribbon">CLASSIC</div>
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                 alt="The Great Gatsby" class="book-cover">
+        </div>
+        
+        <div class="book-content">
+            <h2 class="book-title">The Great Gatsby</h2>
+            <div class="book-author">F. Scott Fitzgerald</div>
+            
+            <div class="book-meta">
+                <span class="book-pages">218 pages</span>
+                <span class="book-year">Published: 1925</span>
+            </div>
+            
+            <p class="book-description">
+                A portrait of the Jazz Age in all of its decadence and excess, Gatsby captured the spirit of the author's generation.
+            </p>
+            
+            <div class="book-rating">
+                <div class="rating-stars">
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star-half-alt filled"></i>
+                </div>
+                <div class="rating-value">4.5/5.0</div>
+            </div>
+            
+            <div class="book-formats">
+                <span class="format-tag">PDF</span>
+                <span class="format-tag">EPUB</span>
+                <span class="format-tag">MOBI</span>
+                <span class="format-tag">Audiobook</span>
+            </div>
+            
+            <a href="#" class="download-btn">
+                <i class="fas fa-download"></i> Download eBook
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Simple hover effect for format tags
+        document.addEventListener('DOMContentLoaded', function() {
+            const formatTags = document.querySelectorAll('.format-tag');
+            const downloadBtn = document.querySelector('.download-btn');
+            
+            // Format tags hover effect
+            formatTags.forEach(tag => {
+                tag.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#222';
+                    this.style.color = 'white';
+                    this.style.transition = 'all 0.2s ease';
+                });
+                
+                tag.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '#f5f5f5';
+                    this.style.color = '#555';
+                });
+            });
+            
+            // Simple download button effect
+            downloadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Downloading...';
+                this.style.background = '#2e7d32';
+                this.style.color = 'white';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-download"></i> Download Complete';
+                    this.style.background = '#1b5e20';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.style.background = '#111';
+                        this.style.color = 'white';
+                    }, 1500);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
+    <br>&nbsp;<br>&nbsp; <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
     
     <!-- Blog Section -->
     <section id="blog" class="fade-in">
