@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - People I've Worked With</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF8F3;
+            --dark: #0A0A0A;
+            --charcoal: #2C2C2C;
+            --medium-gray: #666666;
+            --light-gray: #D4D4D4;
+            --accent-gold: #C9A869;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(to bottom, var(--cream) 0%, #FFFFFF 50%, var(--cream) 100%);
+            color: var(--dark);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .ornamental-border {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .border-top, .border-bottom {
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--accent-gold) 20%, 
+                var(--accent-gold) 80%, 
+                transparent 100%);
+        }
+
+        .border-top { top: 0; }
+        .border-bottom { bottom: 0; }
+
+        .border-left, .border-right {
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                var(--accent-gold) 20%, 
+                var(--accent-gold) 80%, 
+                transparent 100%);
+        }
+
+        .border-left { left: 0; }
+        .border-right { right: 0; }
+
+        .corner-ornament {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        .corner-ornament::before,
+        .corner-ornament::after {
+            content: '';
+            position: absolute;
+            background: var(--accent-gold);
+        }
+
+        .corner-ornament::before {
+            width: 100%;
+            height: 2px;
+        }
+
+        .corner-ornament::after {
+            width: 2px;
+            height: 100%;
+        }
+
+        .corner-tl { top: 8px; left: 8px; }
+        .corner-tl::before { top: 0; left: 0; }
+        .corner-tl::after { top: 0; left: 0; }
+
+        .corner-tr { top: 8px; right: 8px; }
+        .corner-tr::before { top: 0; right: 0; }
+        .corner-tr::after { top: 0; right: 0; }
+
+        .corner-bl { bottom: 8px; left: 8px; }
+        .corner-bl::before { bottom: 0; left: 0; }
+        .corner-bl::after { bottom: 0; left: 0; }
+
+        .corner-br { bottom: 8px; right: 8px; }
+        .corner-br::before { bottom: 0; right: 0; }
+        .corner-br::after { bottom: 0; right: 0; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 60px);
+        }
+
+        /* Navigation */
+        nav {
+            padding: clamp(30px, 5vh, 50px) 0;
+            position: relative;
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--light-gray) 20%, 
+                var(--light-gray) 80%, 
+                transparent 100%);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(40px, 8vw, 100px);
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(11px, 1.2vw, 13px);
+            letter-spacing: 4px;
+            text-decoration: none;
+            color: var(--dark);
+            text-transform: uppercase;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: clamp(80px, 15vh, 150px) 0 clamp(60px, 10vh, 100px);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '❦';
+            position: absolute;
+            top: clamp(40px, 8vh, 80px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(24px, 3vw, 36px);
+            color: var(--accent-gold);
+            opacity: 0.4;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(42px, 7vw, 88px);
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: clamp(25px, 4vh, 40px);
+            color: var(--dark);
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::first-letter {
+            font-size: 1.3em;
+            color: var(--accent-gold);
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(17px, 2vw, 22px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--medium-gray);
+            margin-bottom: clamp(40px, 6vh, 60px);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .decorative-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto clamp(60px, 10vh, 100px);
+            max-width: 400px;
+            gap: 20px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--accent-gold) 50%, 
+                transparent 100%);
+        }
+
+        .divider-ornament {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: var(--accent-gold);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Portrait Gallery */
+        .gallery {
+            padding: clamp(40px, 8vh, 80px) 0 clamp(80px, 12vh, 120px);
+        }
+
+        .portraits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(30px, 5vw, 50px) clamp(20px, 3vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portrait-item {
+            text-align: center;
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .portrait-item:hover {
+            transform: translateY(-12px);
+        }
+
+        .portrait-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .portrait-item:hover .portrait-wrapper {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .portrait-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(201, 168, 105, 0.1) 0%, 
+                transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .portrait-item:hover .portrait-wrapper::before {
+            opacity: 1;
+        }
+
+        .portrait-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .portrait-item:hover .portrait-wrapper::after {
+            opacity: 1;
+        }
+
+        .portrait-item img {
+            width: 100%;
+            height: clamp(280px, 35vw, 320px);
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.15) brightness(0.95);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
+        }
+
+        .portrait-item:hover img {
+            transform: scale(1.08);
+            filter: grayscale(100%) contrast(1.08) brightness(1.05);
+        }
+
+        .portrait-name {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(13px, 1.4vw, 16px);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--dark);
+            font-weight: 400;
+            margin-top: clamp(18px, 3vh, 25px);
+            position: relative;
+            display: inline-block;
+        }
+
+        .portrait-name::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1px;
+            background: var(--accent-gold);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .portrait-item:hover .portrait-name::after {
+            opacity: 1;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            text-align: center;
+            margin: clamp(80px, 12vh, 140px) auto;
+            position: relative;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                var(--light-gray) 0%, 
+                transparent 100%);
+        }
+
+        .section-divider::before {
+            right: calc(50% + 50px);
+        }
+
+        .section-divider::after {
+            left: calc(50% + 50px);
+            background: linear-gradient(270deg, 
+                var(--light-gray) 0%, 
+                transparent 100%);
+        }
+
+        .section-divider-icon {
+            font-size: 28px;
+            color: var(--accent-gold);
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: clamp(60px, 10vh, 100px) 0 clamp(80px, 12vh, 120px);
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                var(--accent-gold) 100%);
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 6vw, 72px);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: clamp(25px, 4vh, 35px);
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .cta-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(16px, 1.8vw, 21px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--medium-gray);
+            margin-bottom: clamp(40px, 6vh, 55px);
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--dark);
+            color: #fff;
+            padding: clamp(15px, 2vh, 20px) clamp(45px, 5vw, 65px);
+            font-family: 'Cinzel', serif;
+            font-size: clamp(12px, 1.3vw, 15px);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--dark);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 300%;
+            height: 300%;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: var(--dark);
+            border-color: var(--accent-gold);
+        }
+
+        .cta-button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: clamp(100px, 15vh, 180px);
+            padding: clamp(35px, 5vh, 50px) 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--light-gray) 20%, 
+                var(--light-gray) 80%, 
+                transparent 100%);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(12px, 1.2vw, 14px);
+            color: var(--medium-gray);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: clamp(15px, 2vw, 25px);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-links span {
+            color: var(--accent-gold);
+            font-size: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .portraits {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .ornamental-border {
+                display: none;
+            }
+
+            .corner-ornament {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portraits {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-divider::before,
+            .section-divider::after {
+                width: 100px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .portraits {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .nav-links {
+                gap: 30px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .section-divider::before,
+            .section-divider::after {
+                display: none;
+            }
+
+            .hero::before {
+                font-size: 20px;
+            }
+        }
+
+        /* Smooth Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .portrait-item {
+                animation: fadeInUp 0.6s ease-out backwards;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ornamental Borders -->
+    <div class="ornamental-border border-top"></div>
+    <div class="ornamental-border border-bottom"></div>
+    <div class="ornamental-border border-left"></div>
+    <div class="ornamental-border border-right"></div>
+    <div class="corner-ornament corner-tl"></div>
+    <div class="corner-ornament corner-tr"></div>
+    <div class="corner-ornament corner-bl"></div>
+    <div class="corner-ornament corner-br"></div>
+
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>People I've Worked With</h1>
+            <p class="hero-subtitle">A Selection of Remarkable Individuals I've Had the Privilege to Collaborate With</p>
+            <div class="decorative-divider">
+                <div class="divider-line"></div>
+                <div class="divider-ornament">
+                    <span>❦</span>
+                    <span>◆</span>
+                    <span>❦</span>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container">
+            <div class="portraits">
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="0">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=480&fit=crop" alt="John Legend">
+                    </div>
+                    <p class="portrait-name">John Legend</p>
+                </div>
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=480&fit=crop" alt="Natalie Portman">
+                    </div>
+                    <p class="portrait-name">Natalie Portman</p>
+                </div>
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=480&fit=crop" alt="Robert De Niro">
+                    </div>
+                    <p class="portrait-name">Robert De Niro</p>
+                </div>
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=480&fit=crop" alt="Serena Williams">
+                    </div>
+                    <p class="portrait-name">Serena Williams</p>
+                </div>
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=480&fit=crop" alt="Martin Scorsese">
+                    </div>
+                    <p class="portrait-name">Martin Scorsese</p>
+                </div>
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=480&fit=crop" alt="Anne Hathaway">
+                    </div>
+                    <p class="portrait-name">Anne Hathaway</p>
+                </div>
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="600">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=480&fit=crop" alt="Quincy Jones">
+                    </div>
+                    <p class="portrait-name">Quincy Jones</p>
+                </div>
+                <div class="portrait-item" data-aos="fade-up" data-aos-delay="700">
+                    <div class="portrait-wrapper">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=480&fit=crop" alt="Elon Musk">
+                    </div>
+                    <p class="portrait-name">Elon Musk</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <span class="section-divider-icon">✦</span>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Interested in Working Together?</h2>
+            <p class="cta-subtitle">Feel free to reach out if you'd like to connect or discuss potential collaborations.</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2024 Your Name. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <span>◆</span>
+                    <a href="#terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 900,
+            once: true,
+            easing: 'ease-out-cubic',
+            offset: 100
+        });
+
+        // Add stagger animation to portraits for non-AOS browsers
+        document.addEventListener('DOMContentLoaded', function() {
+            const portraits = document.querySelectorAll('.portrait-item');
+            portraits.forEach((portrait, index) => {
+                portrait.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
