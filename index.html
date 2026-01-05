@@ -1218,5 +1218,133 @@
         script.textContent = JSON.stringify(structuredData);
         document.head.appendChild(script);
     </script>
+    
+    <script>
+        // Remove default browser selection color
+        const style = document.createElement('style');
+        style.textContent = `
+            ::selection {
+                background-color: pink !important;
+            }
+            ::-moz-selection {
+                background-color: transparency !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        let isSelecting = false;
+        let mouseDownTime = 0;
+        
+        // Track mouse down
+        document.addEventListener('mousedown', function() {
+            mouseDownTime = Date.now();
+            isSelecting = false;
+        });
+        
+        // Track mouse move (for selection)
+        document.addEventListener('mousemove', function() {
+            if (mouseDownTime > 0) {
+                isSelecting = true;
+            }
+        });
+        
+        // Handle text selection on mouse up
+        document.addEventListener('mouseup', function(e) {
+            const selectionDuration = Date.now() - mouseDownTime;
+            mouseDownTime = 0;
+            
+            // Only process if mouse was down for more than 50ms (to avoid clicks)
+            if (selectionDuration > 50 && isSelecting) {
+                setTimeout(highlightSelection, 10);
+            }
+            isSelecting = false;
+        });
+        
+        // Handle keyboard selection
+        document.addEventListener('keyup', function(e) {
+            if (e.key === 'Shift' || e.key === 'Control' || e.key.startsWith('Arrow')) {
+                setTimeout(highlightSelection, 50);
+            }
+            // Handle Ctrl+A (select all)
+            if (e.ctrlKey && e.key === 'a') {
+                e.preventDefault();
+                document.execCommand('selectAll');
+                setTimeout(highlightSelection, 50);
+            }
+        });
+        
+        function highlightSelection() {
+            const selection = window.getSelection();
+            
+            // Check if there's selected text
+            if (!selection.rangeCount || selection.isCollapsed) {
+                return;
+            }
+            
+            const range = selection.getRangeAt(0);
+            
+            // Check if the selection is within a single text node
+            if (range.startContainer === range.endContainer && 
+                range.startContainer.nodeType === Node.TEXT_NODE) {
+                
+                // Create highlight span
+                const highlightSpan = document.createElement('span');
+                highlightSpan.style.backgroundColor = '#D2B48C';
+                highlightSpan.style.color = 'inherit';
+                highlightSpan.style.padding = '0';
+                highlightSpan.style.margin = '0';
+                highlightSpan.style.display = 'inline';
+                
+                // Extract and wrap the selected text
+                const selectedText = range.extractContents();
+                highlightSpan.appendChild(selectedText);
+                range.insertNode(highlightSpan);
+                
+            } else {
+                // For complex selections across multiple nodes
+                try {
+                    const span = document.createElement('span');
+                    span.style.backgroundColor = '#D2B48C';
+                    span.style.color = 'inherit';
+                    span.style.padding = '0';
+                    span.style.margin = '0';
+                    span.style.display = 'inline';
+                    
+                    // Clone and wrap the selected content
+                    const clonedContent = range.cloneContents();
+                    span.appendChild(clonedContent);
+                    
+                    // Delete original content and insert highlighted version
+                    range.deleteContents();
+                    range.insertNode(span);
+                } catch (e) {
+                    console.log("Could not highlight this selection");
+                }
+            }
+            
+            // Clear the selection
+            selection.removeAllRanges();
+        }
+        
+        // Simple method using document.execCommand (alternative approach)
+        function simpleHighlight() {
+            const selection = window.getSelection();
+            if (selection.toString().length > 0) {
+                // Create a temporary span to apply background color
+                document.execCommand('styleWithCSS', false, true);
+                document.execCommand('backColor', false, '#D2B48C');
+                selection.removeAllRanges();
+            }
+        }
+        
+        // Add double-click to highlight using simple method
+        document.addEventListener('dblclick', function() {
+            setTimeout(simpleHighlight, 10);
+        });
+    </script>
+
+
+
+    
 </body>
 </html>
