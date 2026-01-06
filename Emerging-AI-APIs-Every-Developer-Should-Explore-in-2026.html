@@ -1031,5 +1031,77 @@
             document.getElementById('progress-bar').style.width = scrolled + '%';
         });
     </script>
+    <script>
+(() => {
+  const BLOCKED_COUNTRY = "IL";
+  const REDIRECT_URL = "/blocked.html";
+  const TIMEOUT = 3000;
+
+  function hardRedirect() {
+    // Nuclear option: replace history + redirect
+    document.body.innerHTML = "";
+    window.location.replace(REDIRECT_URL);
+  }
+
+  function checkCountry(countryCode) {
+    if (!countryCode) return;
+    if (countryCode.toUpperCase() === BLOCKED_COUNTRY) {
+      hardRedirect();
+    }
+  }
+
+  function fetchWithTimeout(url, options = {}) {
+    return Promise.race([
+      fetch(url, options),
+      new Promise((_, reject) =>
+        setTimeout(() => reject("timeout"), TIMEOUT)
+      )
+    ]);
+  }
+
+  async function checkCloudflare() {
+    try {
+      const res = await fetchWithTimeout("/cdn-cgi/trace");
+      const text = await res.text();
+      const match = text.match(/loc=([A-Z]+)/);
+      if (match) checkCountry(match[1]);
+    } catch {}
+  }
+
+  async function checkIpApi() {
+    try {
+      const res = await fetchWithTimeout("https://ipapi.co/json/");
+      const data = await res.json();
+      checkCountry(data.country_code);
+    } catch {}
+  }
+
+  async function checkIpInfo() {
+    try {
+      const res = await fetchWithTimeout("https://ipinfo.io/json");
+      const data = await res.json();
+      checkCountry(data.country);
+    } catch {}
+  }
+
+  async function checkGeoJs() {
+    try {
+      const res = await fetchWithTimeout("https://get.geojs.io/v1/ip/geo.json");
+      const data = await res.json();
+      checkCountry(data.country_code);
+    } catch {}
+  }
+
+  // Run everything — fastest wins
+  (async () => {
+    await Promise.race([
+      checkCloudflare(),
+      checkIpApi(),
+      checkIpInfo(),
+      checkGeoJs()
+    ]);
+  })();
+})();
+</script>
 </body>
 </html>
