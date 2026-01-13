@@ -4,26 +4,8 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-ready-blue?style=flat-square)](https://wecoded-dev.github.io/hanzlabaig/) [![Last Commit](https://img.shields.io/github/last-commit/wecoded-dev/hanzlabaig?style=flat-square)](https://github.com/wecoded-dev/hanzlabaig/commits/main)
 
-Live demo: https://wecoded-dev.github.io/hanzlabaig/ (GitHub Pages)
+Live demo: https://hanzla-beig.netlify.app/ (Netlify)
 
----
-
-Table of Contents
-- About
-- Live Preview
-- Badges & GitHub Components
-- Features
-- Repository structure
-- Files of note
-- How to preview / run locally
-- Deployment (GitHub Pages)
-- Contributing
-- Accessibility & Performance
-- SEO & Best Practices
-- License
-- Contact
-- Acknowledgements
-- Roadmap
 
 ---
 
